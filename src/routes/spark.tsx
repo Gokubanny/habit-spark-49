@@ -224,6 +224,19 @@ function SparkPage() {
           {isCloud ? "Synced across your devices." : "Sign in to sync across devices."} A new Spark arrives every day at midnight.
         </p>
 
+        {/* Activity heatmap */}
+        <div className="mt-10">
+          <div className="flex items-center gap-2 mb-3">
+            <CalendarDays className="w-4 h-4 text-muted-foreground" />
+            <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+              Last 12 weeks
+            </h2>
+          </div>
+          <div className="rounded-2xl border border-border/60 bg-card p-4">
+            <SparkHeatmap byDate={heatmap} />
+          </div>
+        </div>
+
         {/* Past reflections */}
         <div className="mt-10">
           <div className="flex items-center justify-between mb-3">
