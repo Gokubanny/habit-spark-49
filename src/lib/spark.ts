@@ -146,8 +146,8 @@ export function markSparkVisited(date: string) {
   }
 }
 
-export function getSparkStreak(): number {
-  const visited = new Set(getVisited());
+export function computeStreakFromDates(dates: Iterable<string>): number {
+  const visited = new Set(dates);
   const today = todayDateKey();
   const yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
@@ -167,6 +167,10 @@ export function getSparkStreak(): number {
     } else break;
   }
   return streak;
+}
+
+export function getSparkStreak(): number {
+  return computeStreakFromDates(getVisited());
 }
 
 export function isBannerDismissedToday(): boolean {
