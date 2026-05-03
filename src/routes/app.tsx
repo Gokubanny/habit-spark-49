@@ -12,6 +12,7 @@ import { BottomNav } from "@/components/BottomNav";
 import { AddHabitSheet } from "@/components/AddHabitSheet";
 import { EditHabitSheet } from "@/components/EditHabitSheet";
 import { OnboardingFlow, isOnboarded } from "@/components/OnboardingFlow";
+import { HomeSparkBanner } from "@/components/HomeSparkBanner";
 import { Leaf, Sparkles, ChevronDown, Pencil, Check } from "lucide-react";
 import { toast } from "sonner";
 import { rescheduleAllReminders, scheduleReminder } from "@/lib/notifications";
@@ -279,6 +280,9 @@ function TodayPage() {
             </div>
           )}
         </div>
+
+        {/* Daily Spark banner */}
+        {habits.length > 0 && <HomeSparkBanner />}
 
         {/* Habit list */}
         {habits.length === 0 ? (

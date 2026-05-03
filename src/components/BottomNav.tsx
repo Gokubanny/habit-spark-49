@@ -1,5 +1,5 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { CalendarDays, LayoutList, Plus, Settings } from "lucide-react";
+import { CalendarDays, LayoutList, Plus, Settings, Sparkles } from "lucide-react";
 
 interface BottomNavProps {
   onAddClick: () => void;
@@ -11,11 +11,13 @@ export function BottomNav({ onAddClick }: BottomNavProps) {
 
   const navItems = [
     { to: "/app" as const, icon: LayoutList, label: "Today" },
+    { to: "/spark" as const, icon: Sparkles, label: "Spark" },
     { to: "/insights" as const, icon: CalendarDays, label: "Insights" },
     { to: "/settings" as const, icon: Settings, label: "Settings" },
   ];
 
   const activeIndex = navItems.findIndex((item) => item.to === path);
+  const count = navItems.length;
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 pb-[env(safe-area-inset-bottom)]">
@@ -26,8 +28,8 @@ export function BottomNav({ onAddClick }: BottomNavProps) {
             <div
               className="absolute h-[calc(100%-12px)] rounded-xl bg-primary/10 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
               style={{
-                width: `calc((100% - ${12 + 48}px) / 3)`,
-                left: `calc(6px + ${activeIndex} * ((100% - ${12 + 48}px) / 3))`,
+                width: `calc((100% - ${12 + 48}px) / ${count})`,
+                left: `calc(6px + ${activeIndex} * ((100% - ${12 + 48}px) / ${count}))`,
               }}
             />
           )}
