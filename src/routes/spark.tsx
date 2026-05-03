@@ -5,7 +5,7 @@ import { BottomNav } from "@/components/BottomNav";
 import { AddHabitSheet } from "@/components/AddHabitSheet";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { SparkHeatmap } from "@/components/SparkHeatmap";
+import { SparkHeatmap, type SparkHeatmapDetail } from "@/components/SparkHeatmap";
 import {
   getSparkForDate, todayDateKey, markSparkVisited, computeStreakFromDates,
   saveAnswer, getAnswerForDate, getAnswers, getVisitedDates,
@@ -46,13 +46,13 @@ function SparkPage() {
   const [streak, setStreak] = useState(0);
   const [entries, setEntries] = useState<JournalEntry[]>([]);
   const [seeding, setSeeding] = useState(false);
-  const [heatmap, setHeatmap] = useState<Record<string, "answered" | "visited" | undefined>>({});
+  const [heatmap, setHeatmap] = useState<Record<string, SparkHeatmapDetail | undefined>>({});
 
   const today = todayDateKey();
   const spark = getSparkForDate(today);
 
   const refresh = useCallback(async () => {
-    const map: Record<string, "answered" | "visited" | undefined> = {};
+    const map: Record<string, SparkHeatmapDetail | undefined> = {};
     if (isCloud && user) {
       const cloud = await fetchSparkEntries(user.id);
       const dates = cloud.filter((e) => e.visited).map((e) => e.date);
@@ -66,8 +66,11 @@ function SparkPage() {
           .map((e) => ({ date: e.date, prompt: e.prompt, answer: e.answer || "", type: e.spark_type })),
       );
       for (const e of cloud) {
-        if (e.answer) map[e.date] = "answered";
-        else if (e.visited) map[e.date] = "visited";
+        if (e.answer) {
+          map[e.date] = { state: "answered", prompt: e.prompt, answer: e.answer };
+        } else if (e.visited) {
+          map[e.date] = { state: "visited", prompt: e.prompt };
+        }
       }
     } else {
       markSparkVisited(today);
@@ -78,8 +81,8 @@ function SparkPage() {
       setEntries(local.map((a) => ({ date: a.date, prompt: a.question, answer: a.answer })));
       const { getSparkStreak } = await import("@/lib/spark");
       setStreak(getSparkStreak());
-      for (const d of getVisitedDates()) map[d] = "visited";
-      for (const a of local) map[a.date] = "answered";
+      for (const d of getVisitedDates()) map[d] = { state: "visited" };
+      for (const a of local) map[a.date] = { state: "answered", prompt: a.question, answer: a.answer };
     }
     setHeatmap(map);
   }, [isCloud, user, today]);

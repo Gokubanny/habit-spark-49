@@ -1,5 +1,5 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { CalendarDays, LayoutList, Plus, Settings, Sparkles } from "lucide-react";
+import { CalendarDays, LayoutList, MessagesSquare, Plus, Settings, Sparkles } from "lucide-react";
 
 interface BottomNavProps {
   onAddClick: () => void;
@@ -12,11 +12,15 @@ export function BottomNav({ onAddClick }: BottomNavProps) {
   const navItems = [
     { to: "/app" as const, icon: LayoutList, label: "Today" },
     { to: "/spark" as const, icon: Sparkles, label: "Spark" },
+    { to: "/questions" as const, icon: MessagesSquare, label: "Ask" },
     { to: "/insights" as const, icon: CalendarDays, label: "Insights" },
     { to: "/settings" as const, icon: Settings, label: "Settings" },
   ];
 
-  const activeIndex = navItems.findIndex((item) => item.to === path);
+  // Active also when viewing a child route (e.g. /questions/$id)
+  const activeIndex = navItems.findIndex(
+    (item) => path === item.to || path.startsWith(item.to + "/"),
+  );
   const count = navItems.length;
 
   return (
