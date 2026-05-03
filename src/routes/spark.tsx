@@ -1,13 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState, useCallback } from "react";
-import { Sparkles, Quote, HelpCircle, Lightbulb, Flame, Check, Cloud, CloudOff } from "lucide-react";
+import { Sparkles, Quote, HelpCircle, Lightbulb, Flame, Check, Cloud, CloudOff, CalendarDays } from "lucide-react";
 import { BottomNav } from "@/components/BottomNav";
 import { AddHabitSheet } from "@/components/AddHabitSheet";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { SparkHeatmap } from "@/components/SparkHeatmap";
 import {
   getSparkForDate, todayDateKey, markSparkVisited, computeStreakFromDates,
-  saveAnswer, getAnswerForDate, getAnswers,
+  saveAnswer, getAnswerForDate, getAnswers, getVisitedDates,
 } from "@/lib/spark";
 import type { SparkAnswer } from "@/lib/spark";
 import {
@@ -45,11 +46,13 @@ function SparkPage() {
   const [streak, setStreak] = useState(0);
   const [entries, setEntries] = useState<JournalEntry[]>([]);
   const [seeding, setSeeding] = useState(false);
+  const [heatmap, setHeatmap] = useState<Record<string, "answered" | "visited" | undefined>>({});
 
   const today = todayDateKey();
   const spark = getSparkForDate(today);
 
   const refresh = useCallback(async () => {
+    const map: Record<string, "answered" | "visited" | undefined> = {};
     if (isCloud && user) {
       const cloud = await fetchSparkEntries(user.id);
       const dates = cloud.filter((e) => e.visited).map((e) => e.date);
@@ -62,6 +65,10 @@ function SparkPage() {
           .filter((e: CloudSparkEntry) => !!e.answer)
           .map((e) => ({ date: e.date, prompt: e.prompt, answer: e.answer || "", type: e.spark_type })),
       );
+      for (const e of cloud) {
+        if (e.answer) map[e.date] = "answered";
+        else if (e.visited) map[e.date] = "visited";
+      }
     } else {
       markSparkVisited(today);
       const local: SparkAnswer[] = getAnswers().sort((a, b) => b.date.localeCompare(a.date));
@@ -69,10 +76,12 @@ function SparkPage() {
       setSavedAnswer(todays?.answer ?? null);
       setAnswer(todays?.answer ?? "");
       setEntries(local.map((a) => ({ date: a.date, prompt: a.question, answer: a.answer })));
-      // Local streak from visited storage
       const { getSparkStreak } = await import("@/lib/spark");
       setStreak(getSparkStreak());
+      for (const d of getVisitedDates()) map[d] = "visited";
+      for (const a of local) map[a.date] = "answered";
     }
+    setHeatmap(map);
   }, [isCloud, user, today]);
 
   useEffect(() => {
@@ -214,6 +223,19 @@ function SparkPage() {
         <p className="text-center text-xs text-muted-foreground mt-4">
           {isCloud ? "Synced across your devices." : "Sign in to sync across devices."} A new Spark arrives every day at midnight.
         </p>
+
+        {/* Activity heatmap */}
+        <div className="mt-10">
+          <div className="flex items-center gap-2 mb-3">
+            <CalendarDays className="w-4 h-4 text-muted-foreground" />
+            <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+              Last 12 weeks
+            </h2>
+          </div>
+          <div className="rounded-2xl border border-border/60 bg-card p-4">
+            <SparkHeatmap byDate={heatmap} />
+          </div>
+        </div>
 
         {/* Past reflections */}
         <div className="mt-10">

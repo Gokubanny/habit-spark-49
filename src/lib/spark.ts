@@ -132,10 +132,14 @@ export function getAnswerForDate(date: string): SparkAnswer | undefined {
   return getAnswers().find((a) => a.date === date);
 }
 
-function getVisited(): string[] {
+export function getVisitedDates(): string[] {
   if (typeof window === "undefined") return [];
   const raw = localStorage.getItem(VISITED_KEY);
   return raw ? JSON.parse(raw) : [];
+}
+
+function getVisited(): string[] {
+  return getVisitedDates();
 }
 
 export function markSparkVisited(date: string) {
