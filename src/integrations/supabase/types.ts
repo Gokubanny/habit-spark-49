@@ -103,6 +103,42 @@ export type Database = {
         }
         Relationships: []
       }
+      spark_entries: {
+        Row: {
+          answer: string | null
+          created_at: string
+          date: string
+          id: string
+          prompt: string
+          spark_type: string
+          updated_at: string
+          user_id: string
+          visited: boolean
+        }
+        Insert: {
+          answer?: string | null
+          created_at?: string
+          date: string
+          id?: string
+          prompt: string
+          spark_type: string
+          updated_at?: string
+          user_id: string
+          visited?: boolean
+        }
+        Update: {
+          answer?: string | null
+          created_at?: string
+          date?: string
+          id?: string
+          prompt?: string
+          spark_type?: string
+          updated_at?: string
+          user_id?: string
+          visited?: boolean
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
