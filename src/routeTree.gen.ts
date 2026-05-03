@@ -11,10 +11,12 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SparkRouteImport } from './routes/spark'
 import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as QuestionsRouteImport } from './routes/questions'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as InsightsRouteImport } from './routes/insights'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as QuestionsIdRouteImport } from './routes/questions.$id'
 
 const SparkRoute = SparkRouteImport.update({
   id: '/spark',
@@ -24,6 +26,11 @@ const SparkRoute = SparkRouteImport.update({
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuestionsRoute = QuestionsRouteImport.update({
+  id: '/questions',
+  path: '/questions',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -46,22 +53,31 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const QuestionsIdRoute = QuestionsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => QuestionsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRoute
   '/insights': typeof InsightsRoute
   '/login': typeof LoginRoute
+  '/questions': typeof QuestionsRouteWithChildren
   '/settings': typeof SettingsRoute
   '/spark': typeof SparkRoute
+  '/questions/$id': typeof QuestionsIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/app': typeof AppRoute
   '/insights': typeof InsightsRoute
   '/login': typeof LoginRoute
+  '/questions': typeof QuestionsRouteWithChildren
   '/settings': typeof SettingsRoute
   '/spark': typeof SparkRoute
+  '/questions/$id': typeof QuestionsIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -69,22 +85,42 @@ export interface FileRoutesById {
   '/app': typeof AppRoute
   '/insights': typeof InsightsRoute
   '/login': typeof LoginRoute
+  '/questions': typeof QuestionsRouteWithChildren
   '/settings': typeof SettingsRoute
   '/spark': typeof SparkRoute
+  '/questions/$id': typeof QuestionsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/app' | '/insights' | '/login' | '/settings' | '/spark'
+  fullPaths:
+    | '/'
+    | '/app'
+    | '/insights'
+    | '/login'
+    | '/questions'
+    | '/settings'
+    | '/spark'
+    | '/questions/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/app' | '/insights' | '/login' | '/settings' | '/spark'
+  to:
+    | '/'
+    | '/app'
+    | '/insights'
+    | '/login'
+    | '/questions'
+    | '/settings'
+    | '/spark'
+    | '/questions/$id'
   id:
     | '__root__'
     | '/'
     | '/app'
     | '/insights'
     | '/login'
+    | '/questions'
     | '/settings'
     | '/spark'
+    | '/questions/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -92,6 +128,7 @@ export interface RootRouteChildren {
   AppRoute: typeof AppRoute
   InsightsRoute: typeof InsightsRoute
   LoginRoute: typeof LoginRoute
+  QuestionsRoute: typeof QuestionsRouteWithChildren
   SettingsRoute: typeof SettingsRoute
   SparkRoute: typeof SparkRoute
 }
@@ -110,6 +147,13 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/settings'
       preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/questions': {
+      id: '/questions'
+      path: '/questions'
+      fullPath: '/questions'
+      preLoaderRoute: typeof QuestionsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -140,14 +184,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/questions/$id': {
+      id: '/questions/$id'
+      path: '/$id'
+      fullPath: '/questions/$id'
+      preLoaderRoute: typeof QuestionsIdRouteImport
+      parentRoute: typeof QuestionsRoute
+    }
   }
 }
+
+interface QuestionsRouteChildren {
+  QuestionsIdRoute: typeof QuestionsIdRoute
+}
+
+const QuestionsRouteChildren: QuestionsRouteChildren = {
+  QuestionsIdRoute: QuestionsIdRoute,
+}
+
+const QuestionsRouteWithChildren = QuestionsRoute._addFileChildren(
+  QuestionsRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppRoute: AppRoute,
   InsightsRoute: InsightsRoute,
   LoginRoute: LoginRoute,
+  QuestionsRoute: QuestionsRouteWithChildren,
   SettingsRoute: SettingsRoute,
   SparkRoute: SparkRoute,
 }
