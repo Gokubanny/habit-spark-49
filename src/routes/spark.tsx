@@ -150,7 +150,7 @@ function SparkPage() {
       <BottomNav onAddClick={() => setSheetOpen(true)} />
       <AddHabitSheet
         open={sheetOpen}
-        onOpenChange={setSheetOpen}
+        onClose={() => setSheetOpen(false)}
         onAdd={() => setSheetOpen(false)}
       />
     </div>
