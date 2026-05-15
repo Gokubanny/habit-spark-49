@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { Infinity as InfinityIcon, Mail, Lock, Eye, EyeOff } from "lucide-react";
+import { Flame, Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 import shadowBg from "@/assets/shadow-bg.jpg";
 
@@ -79,8 +79,8 @@ function LoginPage() {
       <div className="max-w-sm w-full animate-fade-up-blur relative z-10">
         {/* Logo — links home */}
         <Link to="/" className="flex items-center justify-center gap-2.5 mb-8 hover:opacity-80 transition-opacity">
-          <InfinityIcon className="w-7 h-7 text-foreground" strokeWidth={2.5} />
-          <span className="text-xl font-semibold text-foreground tracking-tight">Continuum</span>
+          <Flame className="w-7 h-7 text-foreground" strokeWidth={2.5} />
+          <span className="text-xl font-semibold text-foreground tracking-tight">Emberly</span>
         </Link>
 
         {/* Card */}
@@ -152,7 +152,7 @@ function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-xl bg-[#FDAA3E] text-[#1a1a1a] py-3.5 text-sm font-bold hover:bg-[#fdb95e] transition-all duration-200 active:scale-[0.98] disabled:opacity-40 disabled:pointer-events-none shadow-lg shadow-[#FDAA3E]/20"
+            className="w-full rounded-xl bg-primary text-primary-foreground py-3.5 text-sm font-bold hover:bg-primary/90 transition-all duration-200 active:scale-[0.98] disabled:opacity-40 disabled:pointer-events-none shadow-lg shadow-primary/20"
           >
             {loading ? "Please wait..." : isSignUp ? "Sign up" : "Sign in"}
           </button>

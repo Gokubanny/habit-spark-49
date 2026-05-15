@@ -19,8 +19,8 @@ export const Route = createFileRoute("/settings")({
   component: SettingsPage,
   head: () => ({
     meta: [
-      { title: "Continuum — Settings" },
-      { name: "description", content: "Customize your Continuum experience." },
+      { title: "Emberly — Settings" },
+      { name: "description", content: "Customize your Emberly experience." },
     ],
   }),
 });
@@ -295,7 +295,7 @@ function SettingsPage() {
                   <Leaf className="w-5 h-5 text-primary-foreground" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-foreground">Continuum</p>
+                  <p className="text-sm font-medium text-foreground">Emberly</p>
                   <p className="text-[12px] text-muted-foreground">Version 1.0.0 · Built with care</p>
                 </div>
               </div>

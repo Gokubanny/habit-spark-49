@@ -34,7 +34,7 @@ export function scheduleReminder(habit: Habit): void {
 
   const ms = target.getTime() - now.getTime();
   const timer = setTimeout(() => {
-    new Notification("Continuum reminder", {
+    new Notification("Emberly reminder", {
       body: `Time to ${habit.name.toLowerCase()}`,
       icon: "/favicon.ico",
       tag: `habit-${habit.id}`,
