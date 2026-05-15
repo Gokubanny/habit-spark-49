@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect, useCallback } from "react";
 import {
   getHabits, getLogs, saveHabits, saveLogs, toggleHabit, isCompletedToday,
