@@ -46,7 +46,7 @@ export function ProgressRing({ completed, total }: ProgressRingProps) {
         <circle
           cx="50" cy="50" r="45"
           fill="none"
-          stroke="#FDAA3E"
+          stroke="oklch(0.55 0.06 142)"
           strokeWidth="7"
           strokeLinecap="round"
           strokeDasharray={circumference}
