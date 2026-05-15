@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { Infinity as Flame, Mail, Lock, Eye, EyeOff } from "lucide-react";
+import { Flame, Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 import shadowBg from "@/assets/shadow-bg.jpg";
 
