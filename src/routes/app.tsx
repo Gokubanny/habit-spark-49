@@ -46,6 +46,7 @@ export const Route = createFileRoute("/app")({
 function TodayPage() {
   const { user, isLoading: authLoading } = useAuth();
   const navigate = useNavigate();
+  const { profile } = useProfile(user?.id ?? null);
   const [habits, setHabits] = useState<Habit[]>([]);
   const [logs, setLogs] = useState<HabitLog[]>([]);
   const [sheetOpen, setSheetOpen] = useState(false);
