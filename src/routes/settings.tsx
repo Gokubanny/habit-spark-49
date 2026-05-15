@@ -30,6 +30,7 @@ export const Route = createFileRoute("/settings")({
 function SettingsPage() {
   const { theme, setTheme } = useTheme();
   const { user, signOut } = useAuth();
+  const { profile, refresh: refreshProfile } = useProfile(user?.id ?? null);
   const navigate = useNavigate();
   const [sheetOpen, setSheetOpen] = useState(false);
   const [confirmClear, setConfirmClear] = useState(false);
