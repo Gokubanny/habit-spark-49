@@ -17,6 +17,8 @@ import { Leaf, Sparkles, ChevronDown, Pencil, Check } from "lucide-react";
 import { toast } from "sonner";
 import { rescheduleAllReminders, scheduleReminder } from "@/lib/notifications";
 import { useAuth } from "@/hooks/use-auth";
+import { useProfile } from "@/hooks/use-profile";
+import { UserAvatar } from "@/components/UserAvatar";
 import {
   fetchHabitsFromCloud, fetchLogsFromCloud, saveHabitToCloud,
   updateHabitInCloud, deleteHabitFromCloud, reorderHabitsInCloud,
