@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import {
-  Infinity as Flame, Flame, CalendarDays, Moon, Bell, BarChart3, CloudUpload,
+  Flame, CalendarDays, Moon, Bell, BarChart3, CloudUpload,
   CheckCircle2, TrendingUp, Sparkles, ArrowRight, Star, Quote,
 } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
