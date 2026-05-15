@@ -105,7 +105,7 @@ function Hero() {
               <div className="mt-10 flex flex-col sm:flex-row items-start gap-3">
                 <Link
                   to="/login"
-                  className="inline-flex items-center gap-2 rounded-xl bg-primary text-primary-foreground px-7 py-3.5 text-sm font-bold hover:bg-primary/90 transition-all duration-200 active:scale-[0.97] shadow-lg shadow-[#FDAA3E]/25"
+                  className="inline-flex items-center gap-2 rounded-xl bg-primary text-primary-foreground px-7 py-3.5 text-sm font-bold hover:bg-primary/90 transition-all duration-200 active:scale-[0.97] shadow-lg shadow-primary/25"
                 >
                   Get started free
                   <ArrowRight className="w-4 h-4" />
@@ -163,7 +163,7 @@ function Features() {
                   <div className="flex justify-center py-3">
                     <div className="w-20 h-20 rounded-full border-[4px] border-black/[0.06] flex items-center justify-center relative">
                       <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 80 80">
-                        <circle cx="40" cy="40" r="35" fill="none" strokeWidth="4" stroke="#FDAA3E" strokeDasharray="220" strokeDashoffset="110" strokeLinecap="round" />
+                        <circle cx="40" cy="40" r="35" fill="none" strokeWidth="4" stroke="oklch(0.55 0.06 142)" strokeDasharray="220" strokeDashoffset="110" strokeLinecap="round" />
                       </svg>
                       <span className="text-lg font-bold text-black/80">50%</span>
                     </div>
@@ -171,7 +171,7 @@ function Features() {
 
                   {/* Mock habit cards */}
                   {[
-                    { name: "Morning meditation", color: "#FDAA3E", done: true },
+                    { name: "Morning meditation", color: "oklch(0.55 0.06 142)", done: true },
                     { name: "Read 20 pages", color: "hsl(217, 91%, 60%)", done: true },
                     { name: "Exercise 30 min", color: "hsl(25, 95%, 53%)", done: false },
                     { name: "Journal", color: "hsl(270, 95%, 75%)", done: false },
@@ -337,7 +337,7 @@ function FinalCTA() {
           </p>
           <Link
             to="/login"
-            className="mt-8 inline-flex items-center gap-2 rounded-xl bg-primary text-primary-foreground px-8 py-4 text-sm font-semibold hover:bg-primary/90 transition-all duration-200 active:scale-[0.97] shadow-lg shadow-[#FDAA3E]/25"
+            className="mt-8 inline-flex items-center gap-2 rounded-xl bg-primary text-primary-foreground px-8 py-4 text-sm font-semibold hover:bg-primary/90 transition-all duration-200 active:scale-[0.97] shadow-lg shadow-primary/25"
           >
             Get started free
             <ArrowRight className="w-4 h-4" />
