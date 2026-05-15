@@ -277,11 +277,23 @@ function TodayPage() {
             {subtitle && <p className="text-sm text-muted-foreground mt-1">{dateStr} · {subtitle}</p>}
             {!subtitle && <p className="text-sm text-muted-foreground mt-1">{dateStr}</p>}
           </div>
-          {scheduledToday.length > 0 && (
-            <div className="flex-shrink-0 -mt-1">
+          <div className="flex items-center gap-3 flex-shrink-0 -mt-1">
+            {scheduledToday.length > 0 && (
               <ProgressRing completed={completedCount} total={scheduledToday.length} />
-            </div>
-          )}
+            )}
+            <Link
+              to="/settings"
+              aria-label="Open settings"
+              className="rounded-full transition active:scale-95 hover:opacity-80"
+            >
+              <UserAvatar
+                url={profile?.avatar_url}
+                email={user?.email}
+                name={profile?.display_name}
+                size={40}
+              />
+            </Link>
+          </div>
         </div>
 
         {/* Daily Spark banner */}
