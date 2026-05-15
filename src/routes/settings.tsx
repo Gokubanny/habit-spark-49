@@ -14,6 +14,8 @@ import {
   rescheduleAllReminders,
 } from "@/lib/notifications";
 import { useAuth } from "@/hooks/use-auth";
+import { useProfile } from "@/hooks/use-profile";
+import { AvatarUploader } from "@/components/AvatarUploader";
 
 export const Route = createFileRoute("/settings")({
   component: SettingsPage,
@@ -28,6 +30,7 @@ export const Route = createFileRoute("/settings")({
 function SettingsPage() {
   const { theme, setTheme } = useTheme();
   const { user, signOut } = useAuth();
+  const { profile, refresh: refreshProfile } = useProfile(user?.id ?? null);
   const navigate = useNavigate();
   const [sheetOpen, setSheetOpen] = useState(false);
   const [confirmClear, setConfirmClear] = useState(false);
@@ -147,10 +150,17 @@ function SettingsPage() {
             <h2 className="text-[11px] font-medium text-muted-foreground mb-2.5 uppercase tracking-wider">Account</h2>
             <div className="rounded-2xl bg-card shadow-[0_1px_4px_0_rgba(0,0,0,0.06),0_0_0_1px_rgba(0,0,0,0.03)] overflow-hidden">
               {user ? (
-                <div className="px-5 py-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-medium text-foreground">{user.email}</p>
+                <div className="divide-y divide-border/50">
+                  <AvatarUploader
+                    userId={user.id}
+                    email={user.email}
+                    displayName={profile?.display_name}
+                    avatarUrl={profile?.avatar_url}
+                    onChange={refreshProfile}
+                  />
+                  <div className="px-5 py-4 flex items-center justify-between">
+                    <div className="min-w-0">
+                      <p className="text-sm font-medium text-foreground truncate">{user.email}</p>
                       <p className="text-[12px] text-muted-foreground">Syncing to cloud</p>
                     </div>
                     <button

@@ -3,6 +3,23 @@
 /* Emberly typography — "Hago" with refined fallbacks */
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap');
 
+/* Local Hago font — drop the file at /public/fonts/Hago.woff2 (and -Bold.woff2)
+   and it will load automatically. Until then, Manrope is the visible fallback. */
+@font-face {
+  font-family: 'Hago';
+  src: url('/fonts/Hago.woff2') format('woff2');
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Hago';
+  src: url('/fonts/Hago-Bold.woff2') format('woff2');
+  font-weight: 700 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

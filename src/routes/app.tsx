@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect, useCallback } from "react";
 import {
   getHabits, getLogs, saveHabits, saveLogs, toggleHabit, isCompletedToday,
@@ -17,6 +17,8 @@ import { Leaf, Sparkles, ChevronDown, Pencil, Check } from "lucide-react";
 import { toast } from "sonner";
 import { rescheduleAllReminders, scheduleReminder } from "@/lib/notifications";
 import { useAuth } from "@/hooks/use-auth";
+import { useProfile } from "@/hooks/use-profile";
+import { UserAvatar } from "@/components/UserAvatar";
 import {
   fetchHabitsFromCloud, fetchLogsFromCloud, saveHabitToCloud,
   updateHabitInCloud, deleteHabitFromCloud, reorderHabitsInCloud,
@@ -44,6 +46,7 @@ export const Route = createFileRoute("/app")({
 function TodayPage() {
   const { user, isLoading: authLoading } = useAuth();
   const navigate = useNavigate();
+  const { profile } = useProfile(user?.id ?? null);
   const [habits, setHabits] = useState<Habit[]>([]);
   const [logs, setLogs] = useState<HabitLog[]>([]);
   const [sheetOpen, setSheetOpen] = useState(false);
@@ -274,11 +277,23 @@ function TodayPage() {
             {subtitle && <p className="text-sm text-muted-foreground mt-1">{dateStr} · {subtitle}</p>}
             {!subtitle && <p className="text-sm text-muted-foreground mt-1">{dateStr}</p>}
           </div>
-          {scheduledToday.length > 0 && (
-            <div className="flex-shrink-0 -mt-1">
+          <div className="flex items-center gap-3 flex-shrink-0 -mt-1">
+            {scheduledToday.length > 0 && (
               <ProgressRing completed={completedCount} total={scheduledToday.length} />
-            </div>
-          )}
+            )}
+            <Link
+              to="/settings"
+              aria-label="Open settings"
+              className="rounded-full transition active:scale-95 hover:opacity-80"
+            >
+              <UserAvatar
+                url={profile?.avatar_url}
+                email={user?.email}
+                name={profile?.display_name}
+                size={40}
+              />
+            </Link>
+          </div>
         </div>
 
         {/* Daily Spark banner */}
