@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import {
-  Infinity as InfinityIcon, Flame, CalendarDays, Moon, Bell, BarChart3, CloudUpload,
+  Infinity as Flame, Flame, CalendarDays, Moon, Bell, BarChart3, CloudUpload,
   CheckCircle2, TrendingUp, Sparkles, ArrowRight, Star, Quote,
 } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
@@ -67,7 +67,7 @@ function Hero() {
         {/* Navbar */}
         <nav className="relative z-20 max-w-5xl mx-auto px-5 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2.5">
-            <InfinityIcon className="w-7 h-7 text-white" strokeWidth={2.5} />
+            <Flame className="w-7 h-7 text-white" strokeWidth={2.5} />
             <span className="text-xl font-semibold text-white/90 tracking-tight">Emberly</span>
           </Link>
 
@@ -105,7 +105,7 @@ function Hero() {
               <div className="mt-10 flex flex-col sm:flex-row items-start gap-3">
                 <Link
                   to="/login"
-                  className="inline-flex items-center gap-2 rounded-xl bg-[#FDAA3E] text-[#1a1a1a] px-7 py-3.5 text-sm font-bold hover:bg-[#fdb95e] transition-all duration-200 active:scale-[0.97] shadow-lg shadow-[#FDAA3E]/25"
+                  className="inline-flex items-center gap-2 rounded-xl bg-primary text-primary-foreground px-7 py-3.5 text-sm font-bold hover:bg-primary/90 transition-all duration-200 active:scale-[0.97] shadow-lg shadow-[#FDAA3E]/25"
                 >
                   Get started free
                   <ArrowRight className="w-4 h-4" />
@@ -337,7 +337,7 @@ function FinalCTA() {
           </p>
           <Link
             to="/login"
-            className="mt-8 inline-flex items-center gap-2 rounded-xl bg-[#FDAA3E] text-[#1a1a1a] px-8 py-4 text-sm font-semibold hover:bg-[#fdb95e] transition-all duration-200 active:scale-[0.97] shadow-lg shadow-[#FDAA3E]/25"
+            className="mt-8 inline-flex items-center gap-2 rounded-xl bg-primary text-primary-foreground px-8 py-4 text-sm font-semibold hover:bg-primary/90 transition-all duration-200 active:scale-[0.97] shadow-lg shadow-[#FDAA3E]/25"
           >
             Get started free
             <ArrowRight className="w-4 h-4" />
@@ -355,7 +355,7 @@ function Footer() {
       <div className="max-w-5xl mx-auto px-5">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-2">
-            <InfinityIcon className="w-6 h-6 text-foreground" strokeWidth={2.5} />
+            <Flame className="w-6 h-6 text-foreground" strokeWidth={2.5} />
             <span className="font-semibold text-foreground text-sm">Emberly</span>
           </div>
 
