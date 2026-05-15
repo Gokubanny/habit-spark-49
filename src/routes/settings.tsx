@@ -14,6 +14,8 @@ import {
   rescheduleAllReminders,
 } from "@/lib/notifications";
 import { useAuth } from "@/hooks/use-auth";
+import { useProfile } from "@/hooks/use-profile";
+import { AvatarUploader } from "@/components/AvatarUploader";
 
 export const Route = createFileRoute("/settings")({
   component: SettingsPage,
