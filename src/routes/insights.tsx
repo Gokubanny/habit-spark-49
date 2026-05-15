@@ -15,7 +15,7 @@ export const Route = createFileRoute("/insights")({
   component: InsightsPage,
   head: () => ({
     meta: [
-      { title: "Continuum — Insights" },
+      { title: "Emberly — Insights" },
       { name: "description", content: "View your habit streaks, completion rates, and 30-day history." },
     ],
   }),

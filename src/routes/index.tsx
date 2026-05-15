@@ -12,7 +12,7 @@ export const Route = createFileRoute("/")({
   component: LandingPage,
   head: () => ({
     meta: [
-      { title: "Continuum — Build lasting habits, one day at a time" },
+      { title: "Emberly — Build lasting habits, one day at a time" },
       { name: "description", content: "A calm, focused habit tracker. Track streaks, visualize progress, and build your daily ritual. Free, ad-free, distraction-free." },
     ],
   }),
@@ -68,7 +68,7 @@ function Hero() {
         <nav className="relative z-20 max-w-5xl mx-auto px-5 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2.5">
             <InfinityIcon className="w-7 h-7 text-white" strokeWidth={2.5} />
-            <span className="text-xl font-semibold text-white/90 tracking-tight">Continuum</span>
+            <span className="text-xl font-semibold text-white/90 tracking-tight">Emberly</span>
           </Link>
 
           <div className="hidden sm:flex items-center gap-8 text-sm text-white">
@@ -97,7 +97,7 @@ function Hero() {
 
             <ScrollReveal delay={160}>
               <p className="mt-6 text-lg text-white text-left" style={{ textWrap: "pretty", lineHeight: "1.6" }}>
-                Continuum is a calm, focused habit tracker that helps you build consistency through streaks, visual progress, and zero distractions.
+                Emberly is a calm, focused habit tracker that helps you build consistency through streaks, visual progress, and zero distractions.
               </p>
             </ScrollReveal>
 
@@ -333,7 +333,7 @@ function FinalCTA() {
             Ready to build better habits?
           </h2>
           <p className="mt-4 text-white max-w-md mx-auto" style={{ textWrap: "pretty" }}>
-            Join thousands of people using Continuum to build consistency, one day at a time.
+            Join thousands of people using Emberly to build consistency, one day at a time.
           </p>
           <Link
             to="/login"
@@ -356,7 +356,7 @@ function Footer() {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-2">
             <InfinityIcon className="w-6 h-6 text-foreground" strokeWidth={2.5} />
-            <span className="font-semibold text-foreground text-sm">Continuum</span>
+            <span className="font-semibold text-foreground text-sm">Emberly</span>
           </div>
 
           <div className="flex items-center gap-6 text-sm text-muted-foreground">
@@ -367,7 +367,7 @@ function Footer() {
             <Link to="/login" className="hover:text-foreground transition-colors">Get started</Link>
           </div>
 
-          <p className="text-xs text-muted-foreground">© {new Date().getFullYear()} Continuum</p>
+          <p className="text-xs text-muted-foreground">© {new Date().getFullYear()} Emberly</p>
         </div>
       </div>
     </footer>

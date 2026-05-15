@@ -68,7 +68,7 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
               <Leaf className="w-9 h-9 text-primary-foreground" />
             </div>
             <h1 className="text-2xl font-semibold text-foreground tracking-tight" style={{ lineHeight: "1.2" }}>
-              Welcome to Continuum
+              Welcome to Emberly
             </h1>
             <p className="text-sm text-muted-foreground mt-3 mx-auto max-w-[280px]" style={{ textWrap: "pretty" }}>
               A calm space to build lasting habits. No noise, no pressure — just you and your daily ritual.

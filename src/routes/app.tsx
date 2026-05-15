@@ -35,8 +35,8 @@ export const Route = createFileRoute("/app")({
   component: TodayPage,
   head: () => ({
     meta: [
-      { title: "Continuum — Your daily ritual" },
-      { name: "description", content: "Build lasting habits with Continuum. Simple streak tracking, beautiful progress visualization." },
+      { title: "Emberly — Your daily ritual" },
+      { name: "description", content: "Build lasting habits with Emberly. Simple streak tracking, beautiful progress visualization." },
     ],
   }),
 });

@@ -80,7 +80,7 @@ function LoginPage() {
         {/* Logo — links home */}
         <Link to="/" className="flex items-center justify-center gap-2.5 mb-8 hover:opacity-80 transition-opacity">
           <InfinityIcon className="w-7 h-7 text-foreground" strokeWidth={2.5} />
-          <span className="text-xl font-semibold text-foreground tracking-tight">Continuum</span>
+          <span className="text-xl font-semibold text-foreground tracking-tight">Emberly</span>
         </Link>
 
         {/* Card */}
