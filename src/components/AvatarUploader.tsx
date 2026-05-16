@@ -70,8 +70,7 @@ export function AvatarUploader({ userId, email, displayName, avatarUrl, onChange
       const { supabase } = await import("@/integrations/supabase/client");
       const { error } = await supabase
         .from("profiles")
-        .update({ avatar_url: null })
-        .eq("id", userId);
+        .upsert({ id: userId, avatar_url: null }, { onConflict: "id" });
       if (error) throw error;
       setPreview(null);
       toast.success("Avatar removed");
