@@ -6,8 +6,10 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
+    "build:cf": "DEPLOY_TARGET=cloudflare vite build",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
+    "start": "node dist/server/index.js",
     "lint": "eslint ."
   },
   "dependencies": {
