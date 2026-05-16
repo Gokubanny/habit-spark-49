@@ -47,8 +47,7 @@ export function AvatarUploader({ userId, email, displayName, avatarUrl, onChange
 
       const { error: profErr } = await supabase
         .from("profiles")
-        .update({ avatar_url: publicUrl })
-        .eq("id", userId);
+        .upsert({ id: userId, avatar_url: publicUrl }, { onConflict: "id" });
       if (profErr) throw profErr;
 
       toast.success("Avatar updated");
