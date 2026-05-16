@@ -60,6 +60,28 @@ function QuestionDetailPage() {
 
   useEffect(() => { refresh(); }, [refresh]);
 
+  // Realtime: live replies + question updates
+  useEffect(() => {
+    if (!user) return;
+    let cleanup: (() => void) | undefined;
+    let cancelled = false;
+    (async () => {
+      const { supabase } = await import("@/integrations/supabase/client");
+      if (cancelled) return;
+      const channel = supabase
+        .channel(`question:${id}`)
+        .on("postgres_changes", { event: "*", schema: "public", table: "community_replies", filter: `question_id=eq.${id}` }, () => {
+          void refresh();
+        })
+        .on("postgres_changes", { event: "*", schema: "public", table: "community_questions", filter: `id=eq.${id}` }, () => {
+          void refresh();
+        })
+        .subscribe();
+      cleanup = () => { void supabase.removeChannel(channel); };
+    })();
+    return () => { cancelled = true; cleanup?.(); };
+  }, [user, id, refresh]);
+
   const handleReply = async () => {
     if (!user || body.trim().length < 3) return;
     setSubmitting(true);

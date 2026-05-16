@@ -118,6 +118,36 @@ function TodayPage() {
     loadData();
   }, [user, authLoading]);
 
+  // Realtime: re-sync habits + logs when changed from another device/tab
+  useEffect(() => {
+    if (!user) return;
+    let cleanup: (() => void) | undefined;
+    let cancelled = false;
+    (async () => {
+      const { supabase } = await import("@/integrations/supabase/client");
+      if (cancelled) return;
+      const reload = async () => {
+        try {
+          const [h, l] = await Promise.all([
+            fetchHabitsFromCloud(user.id),
+            fetchLogsFromCloud(user.id),
+          ]);
+          setHabits(h);
+          setLogs(l);
+        } catch (e) {
+          console.error("Realtime reload failed:", e);
+        }
+      };
+      const channel = supabase
+        .channel(`app:${user.id}`)
+        .on("postgres_changes", { event: "*", schema: "public", table: "habits", filter: `user_id=eq.${user.id}` }, reload)
+        .on("postgres_changes", { event: "*", schema: "public", table: "habit_logs", filter: `user_id=eq.${user.id}` }, reload)
+        .subscribe();
+      cleanup = () => { void supabase.removeChannel(channel); };
+    })();
+    return () => { cancelled = true; cleanup?.(); };
+  }, [user]);
+
   const handleToggle = async (habitId: string) => {
     const streakBefore = getStreak(habitId, logs, habits);
     const today = todayKey();

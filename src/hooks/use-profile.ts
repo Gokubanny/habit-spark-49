@@ -33,5 +33,36 @@ export function useProfile(userId: string | null | undefined) {
     void refresh();
   }, [refresh]);
 
+  // Realtime: live-update the profile (e.g. avatar change from another tab/device)
+  useEffect(() => {
+    if (!userId) return;
+    let cancelled = false;
+    let cleanup: (() => void) | undefined;
+
+    (async () => {
+      const { supabase } = await import("@/integrations/supabase/client");
+      if (cancelled) return;
+      const channel = supabase
+        .channel(`profile:${userId}`)
+        .on(
+          "postgres_changes",
+          { event: "*", schema: "public", table: "profiles", filter: `id=eq.${userId}` },
+          (payload) => {
+            const next = (payload.new ?? null) as Profile | null;
+            if (next) setProfile((prev) => ({ ...(prev ?? {} as any), ...next }));
+          },
+        )
+        .subscribe();
+      cleanup = () => {
+        void supabase.removeChannel(channel);
+      };
+    })();
+
+    return () => {
+      cancelled = true;
+      cleanup?.();
+    };
+  }, [userId]);
+
   return { profile, isLoading, refresh };
 }

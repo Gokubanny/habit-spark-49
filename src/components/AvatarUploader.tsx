@@ -47,8 +47,7 @@ export function AvatarUploader({ userId, email, displayName, avatarUrl, onChange
 
       const { error: profErr } = await supabase
         .from("profiles")
-        .update({ avatar_url: publicUrl })
-        .eq("id", userId);
+        .upsert({ id: userId, avatar_url: publicUrl }, { onConflict: "id" });
       if (profErr) throw profErr;
 
       toast.success("Avatar updated");
@@ -71,8 +70,7 @@ export function AvatarUploader({ userId, email, displayName, avatarUrl, onChange
       const { supabase } = await import("@/integrations/supabase/client");
       const { error } = await supabase
         .from("profiles")
-        .update({ avatar_url: null })
-        .eq("id", userId);
+        .upsert({ id: userId, avatar_url: null }, { onConflict: "id" });
       if (error) throw error;
       setPreview(null);
       toast.success("Avatar removed");
