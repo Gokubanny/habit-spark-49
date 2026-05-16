@@ -88,6 +88,25 @@ function QuestionsPage() {
 
   useEffect(() => { refresh(); }, [refresh]);
 
+  // Realtime: refresh feed on any new/deleted question
+  useEffect(() => {
+    if (!user) return;
+    let cleanup: (() => void) | undefined;
+    let cancelled = false;
+    (async () => {
+      const { supabase } = await import("@/integrations/supabase/client");
+      if (cancelled) return;
+      const channel = supabase
+        .channel("community-questions")
+        .on("postgres_changes", { event: "*", schema: "public", table: "community_questions" }, () => {
+          void refresh();
+        })
+        .subscribe();
+      cleanup = () => { void supabase.removeChannel(channel); };
+    })();
+    return () => { cancelled = true; cleanup?.(); };
+  }, [user, refresh]);
+
   const handlePost = async (category: Category, body: string) => {
     if (!user) return;
     try {
