@@ -29,7 +29,7 @@ function DebugPage() {
   const [data, setData] = useState<Record<TableName, TableState>>(() =>
     Object.fromEntries(
       TABLES.map((t) => [t, { rows: [], loading: false, error: null }]),
-    ) as Record<TableName, TableState>,
+    ) as unknown as Record<TableName, TableState>,
   );
 
   useEffect(() => {
