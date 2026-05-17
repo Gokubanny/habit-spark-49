@@ -14,6 +14,7 @@ import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as QuestionsRouteImport } from './routes/questions'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as InsightsRouteImport } from './routes/insights'
+import { Route as DebugRouteImport } from './routes/debug'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as QuestionsIdRouteImport } from './routes/questions.$id'
@@ -43,6 +44,11 @@ const InsightsRoute = InsightsRouteImport.update({
   path: '/insights',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DebugRoute = DebugRouteImport.update({
+  id: '/debug',
+  path: '/debug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AppRoute = AppRouteImport.update({
   id: '/app',
   path: '/app',
@@ -62,6 +68,7 @@ const QuestionsIdRoute = QuestionsIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRoute
+  '/debug': typeof DebugRoute
   '/insights': typeof InsightsRoute
   '/login': typeof LoginRoute
   '/questions': typeof QuestionsRouteWithChildren
@@ -72,6 +79,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/app': typeof AppRoute
+  '/debug': typeof DebugRoute
   '/insights': typeof InsightsRoute
   '/login': typeof LoginRoute
   '/questions': typeof QuestionsRouteWithChildren
@@ -83,6 +91,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/app': typeof AppRoute
+  '/debug': typeof DebugRoute
   '/insights': typeof InsightsRoute
   '/login': typeof LoginRoute
   '/questions': typeof QuestionsRouteWithChildren
@@ -95,6 +104,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/app'
+    | '/debug'
     | '/insights'
     | '/login'
     | '/questions'
@@ -105,6 +115,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/app'
+    | '/debug'
     | '/insights'
     | '/login'
     | '/questions'
@@ -115,6 +126,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/app'
+    | '/debug'
     | '/insights'
     | '/login'
     | '/questions'
@@ -126,6 +138,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppRoute: typeof AppRoute
+  DebugRoute: typeof DebugRoute
   InsightsRoute: typeof InsightsRoute
   LoginRoute: typeof LoginRoute
   QuestionsRoute: typeof QuestionsRouteWithChildren
@@ -170,6 +183,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InsightsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/debug': {
+      id: '/debug'
+      path: '/debug'
+      fullPath: '/debug'
+      preLoaderRoute: typeof DebugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/app': {
       id: '/app'
       path: '/app'
@@ -209,6 +229,7 @@ const QuestionsRouteWithChildren = QuestionsRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppRoute: AppRoute,
+  DebugRoute: DebugRoute,
   InsightsRoute: InsightsRoute,
   LoginRoute: LoginRoute,
   QuestionsRoute: QuestionsRouteWithChildren,
