@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import {
   Flame, CalendarDays, Moon, Bell, BarChart3, CloudUpload,
   CheckCircle2, TrendingUp, Sparkles, ArrowRight, Star, Quote,
+  UserCircle, Zap, MessagesSquare,
 } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 import shadowBg from "@/assets/shadow-bg.jpg";
@@ -127,6 +128,10 @@ const features = [
   { icon: Bell, title: "Gentle reminders", desc: "Set custom reminder times so you never forget your daily rituals." },
   { icon: Moon, title: "Dark mode", desc: "Easy on the eyes, day or night. Follows your system or your choice." },
   { icon: CloudUpload, title: "Cloud sync", desc: "Sign in to sync your habits across devices. Your data, always safe." },
+  { icon: UserCircle, title: "Avatar profiles", desc: "Upload a profile photo and see it in your app header and settings." },
+  { icon: Zap, title: "Real-time sync", desc: "Changes sync instantly across all your devices — no refresh needed." },
+  { icon: MessagesSquare, title: "Community Questions", desc: "Ask and browse anonymous questions from fellow habit builders." },
+  { icon: Sparkles, title: "Daily Spark", desc: "A daily quote, question, or insight to spark reflection and momentum." },
 ];
 
 function Features() {
