@@ -6,9 +6,18 @@ import viteReact from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
+  base: '/',  // ← ADD THIS
   server: {
     host: "::",
     port: 8080,
+  },
+  build: {    // ← ADD THIS SECTION
+    outDir: 'dist',
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+      },
+    },
   },
   resolve: {
     alias: {
