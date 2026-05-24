@@ -16,7 +16,6 @@ export function HeroCarousel() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [parallax, setParallax] = useState({ x: 0, y: 0 });
 
-  // Auto-advance
   useEffect(() => {
     const id = setInterval(() => {
       setActive((i) => (i + 1) % slides.length);
@@ -24,7 +23,6 @@ export function HeroCarousel() {
     return () => clearInterval(id);
   }, []);
 
-  // Mouse parallax (desktop only — pointer:fine)
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (!window.matchMedia("(pointer: fine)").matches) return;
@@ -34,7 +32,7 @@ export function HeroCarousel() {
     let raf = 0;
     const onMove = (e: MouseEvent) => {
       const rect = el.getBoundingClientRect();
-      const px = (e.clientX - rect.left) / rect.width - 0.5; // -0.5..0.5
+      const px = (e.clientX - rect.left) / rect.width - 0.5;
       const py = (e.clientY - rect.top) / rect.height - 0.5;
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => setParallax({ x: px, y: py }));
@@ -50,7 +48,6 @@ export function HeroCarousel() {
     };
   }, []);
 
-  // Translate parallax to subtle shift (max ~12px)
   const tx = parallax.x * 14;
   const ty = parallax.y * 10;
 
@@ -59,26 +56,30 @@ export function HeroCarousel() {
       {slides.map((s, i) => {
         const isActive = i === active;
         return (
-          <img
+          <div
             key={s.src}
-            src={s.src}
-            alt={isActive ? s.alt : ""}
-            width={1920}
-            height={1080}
-            aria-hidden={isActive ? undefined : true}
-            className={`absolute inset-0 w-full h-full object-cover object-right select-none transition-opacity ease-out ${
-              isActive ? "opacity-100 hero-kenburns" : "opacity-0"
-            }`}
+            className="absolute inset-0 transition-opacity ease-out"
             style={{
+              opacity: isActive ? 1 : 0,
               transitionDuration: "1400ms",
               transform: `translate3d(${tx}px, ${ty}px, 0)`,
               willChange: "transform, opacity",
             }}
-          />
+          >
+            <img
+              src={s.src}
+              alt={isActive ? s.alt : ""}
+              width={1920}
+              height={1080}
+              aria-hidden={isActive ? undefined : true}
+              className={`w-full h-full object-cover object-right select-none ${
+                isActive ? "hero-kenburns" : ""
+              }`}
+            />
+          </div>
         );
       })}
 
-      {/* Slide indicators */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 pointer-events-auto z-30">
         {slides.map((_, i) => (
           <button
